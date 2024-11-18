@@ -44,13 +44,6 @@ args=(
   -device usb-kbd,bus=xhci.0 -device usb-tablet,bus=xhci.0
   -smp "$CPU_THREADS",cores="$CPU_CORES",sockets="$CPU_SOCKETS"
   -device usb-ehci,id=ehci
-  # -device usb-kbd,bus=ehci.0
-  # -device usb-mouse,bus=ehci.0
-  # -device nec-usb-xhci,id=xhci
-  # -global nec-usb-xhci.msi=off
-  # -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off
-  # -device usb-host,vendorid=0x8086,productid=0x0808  # 2 USD USB Sound Card
-  # -device usb-host,vendorid=0x1b3f,productid=0x2008  # Another 2 USD USB Sound Card
   -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
   -drive if=pflash,format=raw,readonly=on,file="$REPO_PATH/$OVMF_DIR/OVMF_CODE.fd"
   -drive if=pflash,format=raw,file="$REPO_PATH/$OVMF_DIR/OVMF_VARS-1920x1080.fd"
@@ -63,13 +56,12 @@ args=(
   -device ide-hd,bus=sata.3,drive=MacHDD1
   -drive id=MacHDD2,if=none,file="$REPO_PATH/mac_hdd_ng-Sequoia.img",format=qcow2
   -device ide-hd,bus=sata.4,drive=MacHDD2
-  # -netdev tap,id=net0,ifname=tap0,script=no,downscript=no -device virtio-net-pci,netdev=net0,id=net0,mac=52:54:00:c9:18:27
   -netdev user,id=net0,hostfwd=tcp::2222-:22 -device virtio-net-pci,netdev=net0,id=net0,mac=52:54:00:c9:18:27
-  # -netdev user,id=net0 -device vmxnet3,netdev=net0,id=net0,mac=52:54:00:c9:18:27  # Note: Use this line for High Sierra
   -monitor stdio
   -device vmware-svga
   # -device vfio-pci,host=29:00.3  # uncomment to pass through USB; must run with 'sudo'.
-  # -spice port=5900,addr=127.0.0.1,disable-ticketing=on
+  -display none  # uncomment these two lines to boot headless
+  -vnc 0.0.0.0:1,password=on -k en-us
 )
 
 qemu-system-x86_64 "${args[@]}"
