@@ -59,7 +59,7 @@ args=(
   -device vmware-svga
   # -device vfio-pci,host=29:00.3  # uncomment to pass through USB; must run with 'sudo'.
   -display none  # uncomment these two lines to boot headless
-  -vnc 0.0.0.0:1,password=on -k en-us
+  -vnc 0.0.0.0:2,password=on -k en-us
 )
 
 qemu-system-x86_64 "${args[@]}"
