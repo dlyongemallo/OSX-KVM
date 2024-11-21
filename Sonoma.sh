@@ -54,14 +54,12 @@ args=(
   -device ide-hd,bus=sata.2,drive=OpenCoreBoot
   -drive id=MacHDD1,if=none,file="$REPO_PATH/mac_hdd_ng-Sonoma.img",format=qcow2
   -device ide-hd,bus=sata.3,drive=MacHDD1
-  -drive id=MacHDD2,if=none,file="$REPO_PATH/mac_hdd_ng-Sequoia.img",format=qcow2
-  -device ide-hd,bus=sata.4,drive=MacHDD2
   -netdev user,id=net0,hostfwd=tcp::2222-:22 -device virtio-net-pci,netdev=net0,id=net0,mac=52:54:00:c9:18:27
   -monitor stdio
   -device vmware-svga
   # -device vfio-pci,host=29:00.3  # uncomment to pass through USB; must run with 'sudo'.
-  # -display none  # uncomment these two lines to boot headless
-  # -vnc 0.0.0.0:1,password=on -k en-us
+  -display none  # uncomment these two lines to boot headless
+  -vnc 0.0.0.0:1,password=on -k en-us
 )
 
 qemu-system-x86_64 "${args[@]}"
