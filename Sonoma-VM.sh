@@ -23,15 +23,15 @@ MY_OPTIONS="+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check"
 # This script works for Big Sur, Catalina, Mojave, and High Sierra. Tested with
 # macOS 10.15.6, macOS 10.14.6, and macOS 10.13.6.
 
-# ALLOCATED_RAM="4096" # MiB
-# CPU_SOCKETS="1"
-# CPU_CORES="2"
-# CPU_THREADS="4"
+# ALLOCATED_RAM="65536"  # MiB
+# CPU_SOCKETS="2"
+# CPU_CORES="16"
+# CPU_THREADS="32"
 
-ALLOCATED_RAM="65536"  # "16384" # MiB
-CPU_SOCKETS="2"
+ALLOCATED_RAM="114688"
+CPU_SOCKETS="4"
 CPU_CORES="16"
-CPU_THREADS="32"
+CPU_THREADS="64"
 
 REPO_PATH="."
 OVMF_DIR="."
@@ -57,7 +57,7 @@ args=(
   -netdev user,id=net0,hostfwd=tcp::2222-:22 -device virtio-net-pci,netdev=net0,id=net0,mac=52:54:00:c9:18:27
   -monitor stdio
   -device vmware-svga
-  # -device vfio-pci,host=29:00.3  # uncomment to pass through USB; must run with 'sudo'.
+  -device vfio-pci,host=29:00.3  # uncomment to pass through USB; must run with 'sudo'.
   -display none  # uncomment these two lines to boot headless
   -vnc 0.0.0.0:1,password=on -k en-us
 )
